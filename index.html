@@ -1,0 +1,420 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LaTeX Equation Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
+        
+        <h1>LaTeX Equation Editor</h1>
+        
+        <div class="input-section">
+            <label for="equation-input">Enter LaTeX Equation:</label>
+            <div class="rich-editor-container">
+                <div class="toolbar">
+                    <button type="button" class="tool-btn" data-cmd="frac" title="Fraction">\(\frac{a}{b}\)</button>
+                    <button type="button" class="tool-btn" data-cmd="sqrt" title="Square root">\(\sqrt{x}\)</button>
+                    <button type="button" class="tool-btn" data-cmd="sub" title="Subscript">x<sub>i</sub></button>
+                    <button type="button" class="tool-btn" data-cmd="sup" title="Superscript">x<sup>2</sup></button>
+                    <button type="button" class="tool-btn" data-cmd="sum" title="Sum">\(\sum\)</button>
+                    <button type="button" class="tool-btn" data-cmd="int" title="Integral">\(\int\)</button>
+                    <button type="button" class="tool-btn" data-cmd="lim" title="Limit">\(\lim\)</button>
+                    <button type="button" class="tool-btn" data-cmd="alpha" title="Alpha">\(\alpha\)</button>
+                    <button type="button" class="tool-btn" data-cmd="beta" title="Beta">\(\beta\)</button>
+                    <button type="button" class="tool-btn" data-cmd="gamma" title="Gamma">\(\gamma\)</button>
+                    <button type="button" class="tool-btn" data-cmd="delta" title="Delta">\(\Delta\)</button>
+                    <button type="button" class="tool-btn" data-cmd="pm" title="Plus Minus">\(\pm\)</button>
+                    <button type="button" class="tool-btn" data-cmd="neq" title="Not Equal">\(\neq\)</button>
+                    <button type="button" class="tool-btn" data-cmd="leq" title="Less Equal">\(\leq\)</button>
+                    <button type="button" class="tool-btn" data-cmd="geq" title="Greater Equal">\(\geq\)</button>
+                    <button type="button" class="tool-btn" data-cmd="times" title="Times">\(\times\)</button>
+                    <button type="button" class="tool-btn" data-cmd="div" title="Divide">\(\div\)</button>
+                    <button type="button" class="tool-btn" data-cmd="infty" title="Infinity">\(\infty\)</button>
+                    <button type="button" class="tool-btn" data-cmd="partial" title="Partial">\(\partial\)</button>
+                    <button type="button" class="tool-btn" data-cmd="nabla" title="Nabla">\(\nabla\)</button>
+                    <button type="button" class="tool-btn" data-cmd="pmatrix" title="Matrix">pmatrix</button>
+                    <button type="button" class="tool-btn" data-cmd="cdot" title="Center Dot">\(\cdot\)</button>
+                </div>
+                <textarea id="equation-input" placeholder="Example: x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"></textarea>
+            </div>
+            <small style="display: block; margin-top: 0.5rem; color: #666; font-style: italic;">
+                المعادلات تظهر بشكل آني أثناء الكتابة
+            </small>
+        </div>
+
+        <div class="output-section">
+            <h3>Rendered Equation:</h3>
+            <div id="equation-output">
+                <p class="placeholder">Your equation will appear here...</p>
+            </div>
+        </div>
+
+        <div class="floating-symbols">
+            <h4>الرموز</h4>
+            <button class="symbol-key" data-symbol="+">+</button>
+            <button class="symbol-key" data-symbol="-">−</button>
+            <button class="symbol-key" data-symbol="×">×</button>
+            <button class="symbol-key" data-symbol="÷">÷</button>
+            <button class="symbol-key" data-symbol="=">=</button>
+            <button class="symbol-key" data-symbol="[">[</button>
+            <button class="symbol-key" data-symbol="]">]</button>
+            <button class="symbol-key" data-symbol="{">{</button>
+            <button class="symbol-key" data-symbol="}">}</button>
+        </div>
+
+        <div class="library-section">
+            <h3>Common Symbols</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\alpha">\(\alpha\)</button>
+                <button class="symbol-btn" data-latex="\beta">\(\beta\)</button>
+                <button class="symbol-btn" data-latex="\gamma">\(\gamma\)</button>
+                <button class="symbol-btn" data-latex="\delta">\(\delta\)</button>
+                <button class="symbol-btn" data-latex="\sum">\(\sum\)</button>
+                <button class="symbol-btn" data-latex="\prod">\(\prod\)</button>
+                <button class="symbol-btn" data-latex="\int">\(\int\)</button>
+                <button class="symbol-btn" data-latex="\frac{a}{b}">\(\frac{a}{b}\)</button>
+                <button class="symbol-btn" data-latex="\sqrt{x}">\(\sqrt{x}\)</button>
+                <button class="symbol-btn" data-latex="\lim_{x \to \infty}">\(\lim_{x \to \infty}\)</button>
+                <button class="symbol-btn" data-latex="\infty">\(\infty\)</button>
+                <button class="symbol-btn" data-latex="\pi">\(\pi\)</button>
+                <button class="symbol-btn" data-latex="\theta">\(\theta\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Algebra & Calculus</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\frac{dy}{dx}">\(\frac{dy}{dx}\)</button>
+                <button class="symbol-btn" data-latex="\int_{a}^{b} f(x) dx">\(\int_{a}^{b} f(x) dx\)</button>
+                <button class="symbol-btn" data-latex="\sum_{i=1}^{n}">\(\sum_{i=1}^{n}\)</button>
+                <button class="symbol-btn" data-latex="\prod_{i=1}^{n}">\(\prod_{i=1}^{n}\)</button>
+                <button class="symbol-btn" data-latex="\lim_{x \to a} f(x)">\(\lim_{x \to a} f(x)\)</button>
+                <button class="symbol-btn" data-latex="\partial x">\(\partial x\)</button>
+                <button class="symbol-btn" data-latex="\nabla">\(\nabla\)</button>
+                <button class="symbol-btn" data-latex="\Delta">\(\Delta\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Trigonometry</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\sin\theta">\(\sin\theta\)</button>
+                <button class="symbol-btn" data-latex="\cos\theta">\(\cos\theta\)</button>
+                <button class="symbol-btn" data-latex="\tan\theta">\(\tan\theta\)</button>
+                <button class="symbol-btn" data-latex="\csc\theta">\(\csc\theta\)</button>
+                <button class="symbol-btn" data-latex="\sec\theta">\(\sec\theta\)</button>
+                <button class="symbol-btn" data-latex="\cot\theta">\(\cot\theta\)</button>
+                <button class="symbol-btn" data-latex="\sin^2\theta + \cos^2\theta = 1">\(\sin^2\theta + \cos^2\theta = 1\)</button>
+                <button class="symbol-btn" data-latex="\sin(2\theta) = 2\sin\theta\cos\theta">\(\sin(2\theta) = 2\sin\theta\cos\theta\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Greek Letters</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\alpha">\(\alpha\)</button>
+                <button class="symbol-btn" data-latex="\beta">\(\beta\)</button>
+                <button class="symbol-btn" data-latex="\gamma">\(\gamma\)</button>
+                <button class="symbol-btn" data-latex="\delta">\(\delta\)</button>
+                <button class="symbol-btn" data-latex="\epsilon">\(\epsilon\)</button>
+                <button class="symbol-btn" data-latex="\zeta">\(\zeta\)</button>
+                <button class="symbol-btn" data-latex="\eta">\(\eta\)</button>
+                <button class="symbol-btn" data-latex="\theta">\(\theta\)</button>
+                <button class="symbol-btn" data-latex="\lambda">\(\lambda\)</button>
+                <button class="symbol-btn" data-latex="\mu">\(\mu\)</button>
+                <button class="symbol-btn" data-latex="\pi">\(\pi\)</button>
+                <button class="symbol-btn" data-latex="\sigma">\(\sigma\)</button>
+                <button class="symbol-btn" data-latex="\tau">\(\tau\)</button>
+                <button class="symbol-btn" data-latex="\phi">\(\phi\)</button>
+                <button class="symbol-btn" data-latex="\omega">\(\omega\)</button>
+                <button class="symbol-btn" data-latex="\Omega">\(\Omega\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Set Theory & Logic</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\forall">\(\forall\)</button>
+                <button class="symbol-btn" data-latex="\exists">\(\exists\)</button>
+                <button class="symbol-btn" data-latex="\emptyset">\(\emptyset\)</button>
+                <button class="symbol-btn" data-latex="\in">\(\in\)</button>
+                <button class="symbol-btn" data-latex="\notin">\(\notin\)</button>
+                <button class="symbol-btn" data-latex="\subset">\(\subset\)</button>
+                <button class="symbol-btn" data-latex="\supset">\(\supset\)</button>
+                <button class="symbol-btn" data-latex="\cap">\(\cap\)</button>
+                <button class="symbol-btn" data-latex="\cup">\(\cup\)</button>
+                <button class="symbol-btn" data-latex="\mathbb{R}">\(\mathbb{R}\)</button>
+                <button class="symbol-btn" data-latex="\mathbb{N}">\(\mathbb{N}\)</button>
+                <button class="symbol-btn" data-latex="\mathbb{Z}">\(\mathbb{Z}\)</button>
+                <button class="symbol-btn" data-latex="\mathbb{Q}">\(\mathbb{Q}\)</button>
+                <button class="symbol-btn" data-latex="\mathbb{C}">\(\mathbb{C}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Matrices & Vectors</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\vec{v}">\(\vec{v}\)</button>
+                <button class="symbol-btn" data-latex="\hat{i}">\(\hat{i}\)</button>
+                <button class="symbol-btn" data-latex="\begin{pmatrix} a & b \\ c & d \end{pmatrix}">\(\begin{pmatrix} a & b \\ c & d \end{pmatrix}\)</button>
+                <button class="symbol-btn" data-latex="\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}">\(\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\)</button>
+                <button class="symbol-btn" data-latex="\begin{vmatrix} a & b \\ c & d \end{vmatrix}">\(\begin{vmatrix} a & b \\ c & d \end{vmatrix}\)</button>
+                <button class="symbol-btn" data-latex="\|v\|">\(\|v\|\)</button>
+                <button class="symbol-btn" data-latex="\cdot">\(\cdot\)</button>
+                <button class="symbol-btn" data-latex="\times">\(\times\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Equations & Formulas</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="a^2 + b^2 = c^2">\(a^2 + b^2 = c^2\)</button>
+                <button class="symbol-btn" data-latex="e^{i\pi} + 1 = 0">\(e^{i\pi} + 1 = 0\)</button>
+                <button class="symbol-btn" data-latex="\frac{1}{2}mv^2">\(E = \frac{1}{2}mv^2\)</button>
+                <button class="symbol-btn" data-latex="F = ma">\(F = ma\)</button>
+                <button class="symbol-btn" data-latex="\frac{d}{dx}\left[\int f(x) dx\right] = f(x)">\(\frac{d}{dx}\left[\int f(x) dx\right] = f(x)\)</button>
+                <button class="symbol-btn" data-latex="\sum_{n=0}^{\infty} \frac{x^n}{n!} = e^x">\(\sum_{n=0}^{\infty} \frac{x^n}{n!} = e^x\)</button>
+                <button class="symbol-btn" data-latex="\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}">\(\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\)</button>
+                <button class="symbol-btn" data-latex="\log_b(xy) = \log_b(x) + \log_b(y)">\(\log_b(xy) = \log_b(x) + \log_b(y)\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Physics - Mechanics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="F = ma">\(F = ma\)</button>
+                <button class="symbol-btn" data-latex="E_k = \frac{1}{2}mv^2">\(E_k = \frac{1}{2}mv^2\)</button>
+                <button class="symbol-btn" data-latex="E_p = mgh">\(E_p = mgh\)</button>
+                <button class="symbol-btn" data-latex="p = mv">\(p = mv\)</button>
+                <button class="symbol-btn" data-latex="\tau = r \times F">\( \tau = r \times F \)</button>
+                <button class="symbol-btn" data-latex="L = r \times p">\( L = r \times p \)</button>
+                <button class="symbol-btn" data-latex="\omega = \frac{d\theta}{dt}">\(\omega = \frac{d\theta}{dt}\)</button>
+                <button class="symbol-btn" data-latex="a_c = \frac{v^2}{r}">\(a_c = \frac{v^2}{r}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Physics - Electromagnetism</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="F = qE">\(F = qE\)</button>
+                <button class="symbol-btn" data-latex="F = q(v \times B)">\(F = q(v \times B)\)</button>
+                <button class="symbol-btn" data-latex="\oint E \cdot dA = \frac{Q}{\varepsilon_0}">\(\oint E \cdot dA = \frac{Q}{\varepsilon_0}\)</button>
+                <button class="symbol-btn" data-latex="\oint B \cdot dA = 0">\(\oint B \cdot dA = 0\)</button>
+                <button class="symbol-btn" data-latex="\oint E \cdot dl = -\frac{d\Phi_B}{dt}">\(\oint E \cdot dl = -\frac{d\Phi_B}{dt}\)</button>
+                <button class="symbol-btn" data-latex="\oint B \cdot dl = \mu_0 I + \mu_0 \varepsilon_0 \frac{d\Phi_E}{dt}">\(\oint B \cdot dl = \mu_0 I + \mu_0 \varepsilon_0 \frac{d\Phi_E}{dt}\)</button>
+                <button class="symbol-btn" data-latex="V = IR">\(V = IR\)</button>
+                <button class="symbol-btn" data-latex="P = VI">\(P = VI\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Physics - Thermodynamics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="PV = nRT">\(PV = nRT\)</button>
+                <button class="symbol-btn" data-latex="\Delta U = Q - W">\(\Delta U = Q - W\)</button>
+                <button class="symbol-btn" data-latex="dS = \frac{dQ}{T}">\(dS = \frac{dQ}{T}\)</button>
+                <button class="symbol-btn" data-latex="\eta = 1 - \frac{T_c}{T_h}">\(\eta = 1 - \frac{T_c}{T_h}\)</button>
+                <button class="symbol-btn" data-latex="k = \frac{3}{2}k_B T">\(k = \frac{3}{2}k_B T\)</button>
+                <button class="symbol-btn" data-latex="P = \frac{1}{3}\frac{Nm\bar{v}^2}{V}">\(P = \frac{1}{3}\frac{Nm\bar{v}^2}{V}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Physics - Quantum Mechanics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="E = \hbar \omega">\(E = \hbar \omega\)</button>
+                <button class="symbol-btn" data-latex="p = \hbar k">\(p = \hbar k\)</button>
+                <button class="symbol-btn" data-latex="i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2 \psi + V\psi">\(i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2 \psi + V\psi\)</button>
+                <button class="symbol-btn" data-latex="\psi(x,t) = Ae^{i(kx - \omega t)}">\(\psi(x,t) = Ae^{i(kx - \omega t)}\)</button>
+                <button class="symbol-btn" data-latex="\Delta x \Delta p \ge \frac{\hbar}{2}">\(\Delta x \Delta p \ge \frac{\hbar}{2}\)</button>
+                <button class="symbol-btn" data-latex="\langle A \rangle = \int \psi^* \hat{A} \psi \, d\tau">\(\langle A \rangle = \int \psi^* \hat{A} \psi \, d\tau\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Chemistry - General Chemistry</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="K = \frac{[C]^c[D]^d}{[A]^a[B]^b}">\(K = \frac{[C]^c[D]^d}{[A]^a[B]^b}\)</button>
+                <button class="symbol-btn" data-latex="pH = -\log[H^+]">\(pH = -\log[H^+]\)</button>
+                <button class="symbol-btn" data-latex="E = E^\circ - \frac{RT}{nF}\ln Q">\(E = E^\circ - \frac{RT}{nF}\ln Q\)</button>
+                <button class="symbol-btn" data-latex="\Delta G = \Delta H - T\Delta S">\(\Delta G = \Delta H - T\Delta S\)</button>
+                <button class="symbol-btn" data-latex="PV = nRT">\(PV = nRT\)</button>
+                <button class="symbol-btn" data-latex="\frac{d[A]}{dt} = -k[A]">\(\frac{d[A]}{dt} = -k[A]\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Chemistry - Thermodynamics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\Delta G = \Delta G^\circ + RT\ln Q">\( \Delta G = \Delta G^\circ + RT\ln Q \)</button>
+                <button class="symbol-btn" data-latex="\Delta G^\circ = -RT\ln K">\( \Delta G^\circ = -RT\ln K \)</button>
+                <button class="symbol-btn" data-latex="\Delta S = \frac{q_{rev}}{T}">\( \Delta S = \frac{q_{rev}}{T} \)</button>
+                <button class="symbol-btn" data-latex="S = k_B \ln W">\( S = k_B \ln W \)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Economics - Microeconomics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="MU = \frac{\Delta TU}{\Delta Q}">\(MU = \frac{\Delta TU}{\Delta Q}\)</button>
+                <button class="symbol-btn" data-latex="MRS_{xy} = -\frac{\Delta y}{\Delta x}">\(MRS_{xy} = -\frac{\Delta y}{\Delta x}\)</button>
+                <button class="symbol-btn" data-latex="P = MC">\(P = MC\)</button>
+                <button class="symbol-btn" data-latex="TR = P \times Q">\(TR = P \times Q\)</button>
+                <button class="symbol-btn" data-latex="MR = \frac{\Delta TR}{\Delta Q}">\(MR = \frac{\Delta TR}{\Delta Q}\)</button>
+                <button class="symbol-btn" data-latex="MC = \frac{\Delta TC}{\Delta Q}">\(MC = \frac{\Delta TC}{\Delta Q}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Economics - Macroeconomics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="Y = C + I + G + (X - M)">\(Y = C + I + G + (X - M)\)</button>
+                <button class="symbol-btn" data-latex="MV = PY">\(MV = PY\)</button>
+                <button class="symbol-btn" data-latex="C = C_0 + cY^d">\(C = C_0 + cY^d\)</button>
+                <button class="symbol-btn" data-latex="k = \frac{1}{MPS}">\(k = \frac{1}{MPS}\)</button>
+                <button class="symbol-btn" data-latex="IS: Y = C(Y - T) + I(r) + G">\(IS: Y = C(Y - T) + I(r) + G\)</button>
+                <button class="symbol-btn" data-latex="LM: \frac{M}{P} = L(r,Y)">\(LM: \frac{M}{P} = L(r,Y)\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Engineering - Structural Engineering</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\sigma = \frac{F}{A}">\( \sigma = \frac{F}{A} \)</button>
+                <button class="symbol-btn" data-latex="\epsilon = \frac{\Delta L}{L_0}">\( \epsilon = \frac{\Delta L}{L_0} \)</button>
+                <button class="symbol-btn" data-latex="\sigma = E\epsilon">\( \sigma = E\epsilon \)</button>
+                <button class="symbol-btn" data-latex="M = \frac{\sigma I}{y}">\(M = \frac{\sigma I}{y}\)</button>
+                <button class="symbol-btn" data-latex="\tau = \frac{VQ}{It}">\( \tau = \frac{VQ}{It} \)</button>
+                <button class="symbol-btn" data-latex="P_{cr} = \frac{\pi^2 E I}{(KL)^2}">\(P_{cr} = \frac{\pi^2 E I}{(KL)^2}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Engineering - Fluid Mechanics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="P = \rho gh">\(P = \rho gh\)</button>
+                <button class="symbol-btn" data-latex="P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2">\(P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2\)</button>
+                <button class="symbol-btn" data-latex="F_D = \frac{1}{2}C_D \rho A v^2">\(F_D = \frac{1}{2}C_D \rho A v^2\)</button>
+                <button class="symbol-btn" data-latex="Re = \frac{\rho v L}{\mu}">\(Re = \frac{\rho v L}{\mu}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Engineering - Thermodynamics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\dot{Q} - \dot{W} = \frac{dE}{dt}">\( \dot{Q} - \dot{W} = \frac{dE}{dt} \)</button>
+                <button class="symbol-btn" data-latex="\eta = \frac{W_{net}}{Q_{in}}">\( \eta = \frac{W_{net}}{Q_{in}} \)</button>
+                <button class="symbol-btn" data-latex="h = u + Pv">\(h = u + Pv\)</button>
+                <button class="symbol-btn" data-latex="s = s^\circ + R\ln\left(\frac{P}{P_0}\right)">\(s = s^\circ + R\ln\left(\frac{P}{P_0}\right)\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Medical Sciences - Pharmacology</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="C_{ss} = \frac{F \cdot D}{CL \cdot \tau}">\(C_{ss} = \frac{F \cdot D}{CL \cdot \tau}\)</button>
+                <button class="symbol-btn" data-latex="V_d = \frac{D}{C_0}">\(V_d = \frac{D}{C_0}\)</button>
+                <button class="symbol-btn" data-latex="CL = k \cdot V_d">\(CL = k \cdot V_d\)</button>
+                <button class="symbol-btn" data-latex="t_{1/2} = \frac{0.693}{k}">\(t_{1/2} = \frac{0.693}{k}\)</button>
+                <button class="symbol-btn" data-latex="AUC = \int_0^\infty C(t) dt">\(AUC = \int_0^\infty C(t) dt\)</button>
+                <button class="symbol-btn" data-latex="C(t) = C_0 e^{-kt}">\(C(t) = C_0 e^{-kt}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Medical Sciences - Epidemiology</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="RR = \frac{P(\text{disease}| \text{exposed})}{P(\text{disease}| \text{unexposed})}">\(RR = \frac{P(\text{disease}| \text{exposed})}{P(\text{disease}| \text{unexposed})}\)</button>
+                <button class="symbol-btn" data-latex="OR = \frac{ad}{bc}">\(OR = \frac{ad}{bc}\)</button>
+                <button class="symbol-btn" data-latex="CI = \bar{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}">\(CI = \bar{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\)</button>
+                <button class="symbol-btn" data-latex="SE = \frac{s}{\sqrt{n}}">\(SE = \frac{s}{\sqrt{n}}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Artificial Intelligence - Machine Learning</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="J(\theta) = \frac{1}{2m} \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2">\(J(\theta) = \frac{1}{2m} \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2\)</button>
+                <button class="symbol-btn" data-latex="\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)">\(\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta)\)</button>
+                <button class="symbol-btn" data-latex="h_\theta(x) = g(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}">\(h_\theta(x) = g(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}\)</button>
+                <button class="symbol-btn" data-latex="P(y=1|x;\theta) = h_\theta(x)">\(P(y=1|x;\theta) = h_\theta(x)\)</button>
+                <button class="symbol-btn" data-latex="f_{W,b}(x) = W^T x + b">\(f_{W,b}(x) = W^T x + b\)</button>
+                <button class="symbol-btn" data-latex="L(\hat{y}, y) = -y \log(\hat{y}) - (1-y)\log(1-\hat{y})">\(L(\hat{y}, y) = -y \log(\hat{y}) - (1-y)\log(1-\hat{y})\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Artificial Intelligence - Neural Networks</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="z^{[l]} = W^{[l]}a^{[l-1]} + b^{[l]}">\(z^{[l]} = W^{[l]}a^{[l-1]} + b^{[l]}\)</button>
+                <button class="symbol-btn" data-latex="a^{[l]} = g^{[l]}(z^{[l]})">\(a^{[l]} = g^{[l]}(z^{[l]})\)</button>
+                <button class="symbol-btn" data-latex="J = -\frac{1}{m} \sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} \log \hat{y}_k^{(i)}">\(J = -\frac{1}{m} \sum_{i=1}^m \sum_{k=1}^K y_k^{(i)} \log \hat{y}_k^{(i)}\)</button>
+                <button class="symbol-btn" data-latex="\frac{\partial J}{\partial W^{[l]}} = \frac{1}{m} dZ^{[l]} A^{[l-1]T}">\(\frac{\partial J}{\partial W^{[l]}} = \frac{1}{m} dZ^{[l]} A^{[l-1]T}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Financial Mathematics</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="FV = PV(1 + r)^n">\(FV = PV(1 + r)^n\)</button>
+                <button class="symbol-btn" data-latex="PV = \frac{FV}{(1 + r)^n}">\(PV = \frac{FV}{(1 + r)^n}\)</button>
+                <button class="symbol-btn" data-latex="NPV = \sum_{t=0}^n \frac{C_t}{(1 + r)^t}">\(NPV = \sum_{t=0}^n \frac{C_t}{(1 + r)^t}\)</button>
+                <button class="symbol-btn" data-latex="IRR: NPV = 0">\(IRR: NPV = 0\)</button>
+                <button class="symbol-btn" data-latex="CAPM: E(R_i) = R_f + \beta_i(E(R_m) - R_f)">\(CAPM: E(R_i) = R_f + \beta_i(E(R_m) - R_f)\)</button>
+                <button class="symbol-btn" data-latex="BSM: C = S_0 N(d_1) - Ke^{-rT} N(d_2)\)">\(BSM: C = S_0 N(d_1) - Ke^{-rT} N(d_2)\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Advanced Mathematics - Differential Equations</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="\frac{dy}{dx} + P(x)y = Q(x)">\(\frac{dy}{dx} + P(x)y = Q(x)\)</button>
+                <button class="symbol-btn" data-latex="\frac{d^2y}{dx^2} + \omega^2 y = 0">\( \frac{d^2y}{dx^2} + \omega^2 y = 0 \)</button>
+                <button class="symbol-btn" data-latex="y = c_1 e^{\lambda_1 x} + c_2 e^{\lambda_2 x}">\(y = c_1 e^{\lambda_1 x} + c_2 e^{\lambda_2 x}\)</button>
+                <button class="symbol-btn" data-latex="\nabla^2 \phi = 0">\( \nabla^2 \phi = 0 \)</button>
+                <button class="symbol-btn" data-latex="u(x,t) = \sum_{n=1}^\infty B_n \sin\left(\frac{n\pi x}{L}\right) e^{-k\left(\frac{n\pi}{L}\right)^2 t}">\(u(x,t) = \sum_{n=1}^\infty B_n \sin\left(\frac{n\pi x}{L}\right) e^{-k\left(\frac{n\pi}{L}\right)^2 t}\)</button>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Advanced Mathematics - Complex Analysis</h3>
+            <div class="symbols-grid">
+                <button class="symbol-btn" data-latex="f(z) = u(x,y) + iv(x,y)">\(f(z) = u(x,y) + iv(x,y)\)</button>
+                <button class="symbol-btn" data-latex="\oint_C f(z) dz = 0">\( \oint_C f(z) dz = 0 \)</button>
+                <button class="symbol-btn" data-latex="f(z) = \sum_{n=0}^\infty a_n (z - z_0)^n">\(f(z) = \sum_{n=0}^\infty a_n (z - z_0)^n\)</button>
+                <button class="symbol-btn" data-latex="e^{i\theta} = \cos\theta + i\sin\theta">\(e^{i\theta} = \cos\theta + i\sin\theta\)</button>
+                <button class="symbol-btn" data-latex="Res(f,z_0) = \frac{1}{2\pi i} \oint_\gamma f(z) dz">\(Res(f,z_0) = \frac{1}{2\pi i} \oint_\gamma f(z) dz\)</button>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="copy-btn">Copy LaTeX</button>
+            <button id="clear-btn">Clear</button>
+            <button id="export-btn">Export to Word</button>
+            <button id="export-image-btn">Export as Image</button>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
